@@ -7,40 +7,38 @@ class Homework(Trie):
 
     def put(self, word: str, value: int) -> None:
         """
-        Додає слово в дерево префіксів із відповідним значенням.
+        Adds a word to the prefix tree with an associated value.
 
         Args:
-            word: Слово, яке потрібно додати.
-            value: Значення, пов'язане зі словом.
+            word: The word to add.
+            value: The value associated with the word.
         """
         current = self._root
         for char in word:
             if char not in current:
                 current[char] = {}
             current = current[char]
-        current['value'] = value  # Зберігаємо значення для слова
+        current['value'] = value  # Store the value for the word
 
     def count_words_with_suffix(self, pattern: str) -> int:
         """
         Counts the number of words in the trie that end with the given pattern.
         
         Args:
-            pattern: The suffix pattern to search for
+            pattern: The suffix pattern to search for.
             
         Returns:
-            int: Number of words ending with the pattern
+            int: Number of words ending with the pattern.
             
         Raises:
-            TypeError: If pattern is not a string
-            ValueError: If pattern is empty
+            TypeError: If pattern is not a string.
+            ValueError: If pattern is empty.
         """
         if not isinstance(pattern, str):
             raise TypeError("Pattern must be a string")
         if not pattern:
             raise ValueError("Pattern cannot be empty")
 
-        
-            
         def _find_all_words(node: Dict, current_word: str) -> list:
             """Helper function to find all words in the trie starting from a given node."""
             words = []
@@ -66,14 +64,14 @@ class Homework(Trie):
         Checks if there are any words in the trie with the given prefix.
         
         Args:
-            prefix: The prefix to search for
+            prefix: The prefix to search for.
             
         Returns:
-            bool: True if prefix exists, False otherwise
+            bool: True if prefix exists, False otherwise.
             
         Raises:
-            TypeError: If prefix is not a string
-            ValueError: If prefix is empty
+            TypeError: If prefix is not a string.
+            ValueError: If prefix is empty.
         """
         if not isinstance(prefix, str):
             raise TypeError("Prefix must be a string")
