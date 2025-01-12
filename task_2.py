@@ -1,5 +1,5 @@
 from pytrie import Trie
-from typing import List, Optional
+from typing import List
 
 
 class LongestCommonWord(Trie):
@@ -8,32 +8,32 @@ class LongestCommonWord(Trie):
 
     def put(self, word: str, value: int) -> None:
         """
-        Додає слово в дерево префіксів із відповідним значенням.
+        Adds a word to the prefix tree with an associated value.
 
         Args:
-            word: Слово, яке потрібно додати.
-            value: Значення, пов'язане зі словом.
+            word: The word to add.
+            value: The value associated with the word.
         """
         current = self._root
         for char in word:
             if char not in current:
                 current[char] = {}
             current = current[char]
-        current['value'] = value  # Зберігаємо значення для слова
+        current['value'] = value  # Store the value for the word
 
     def find_longest_common_word(self, strings: List[str]) -> str:
         """
-        Finds the longest common prefix among all strings in the given array.
+        Finds the longest common prefix among all strings in the given list.
 
         Args:
-            strings: List of strings to find common prefix from
+            strings: List of strings to find the common prefix from.
 
         Returns:
-            str: The longest common prefix, or empty string if none exists
+            str: The longest common prefix, or an empty string if none exists.
 
         Raises:
-            TypeError: If strings is not a list or contains non-string elements
-            ValueError: If strings is empty
+            TypeError: If strings is not a list or contains non-string elements.
+            ValueError: If the input list is empty.
         """
         # Input validation
         if not isinstance(strings, list):
@@ -53,14 +53,15 @@ class LongestCommonWord(Trie):
         def find_common_prefix(node, prefix: str) -> str:
             """
             Helper function to traverse the trie and find the longest common prefix.
-            Returns the prefix when we hit a node with multiple children or end of a word.
+            Returns the prefix when we encounter a node with multiple children
+            or reach the end of a word.
             """
-            # If we have more than one child or no children, return current prefix
+            # If the current node has more than one child or no children, return the current prefix
             child_keys = [k for k in node.keys() if k != "value"]
             if len(child_keys) != 1:
                 return prefix
 
-            # Continue with the single child path
+            # Continue traversing the single child path
             char = child_keys[0]
             return find_common_prefix(node[char], prefix + char)
 
